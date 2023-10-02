@@ -25,7 +25,8 @@ class DWG:
 		    self.directory,
 		    getattr(revitron.DB.ExportUnit,
 		            self.config.get('DWG_Export_Unit')),
-		    self.config.get('Sheet_Naming_Template')
+		    self.config.get('Sheet_Naming_Template'),
+			self.config.get('Sanitize')
 		)
 
 
@@ -80,5 +81,6 @@ class PDF:
 		    sheetOrientation,
 		    self.config.get('Color_Mode'),
 		    self.directory,
-		    self.config.get('Sheet_Naming_Template')
+		    self.config.get('Sheet_Naming_Template'),
+			self.config.get('Sanitize')
 		)
