@@ -4,6 +4,8 @@ import json
 from pyrevit import script
 from pyrevit import forms
 
+revitron.DOC = __revit__.ActiveUIDocument.Document
+revitron.UIDOC = __revit__.ActiveUIDocument
 
 def tableCell(text):
 	return '<td style="white-space: nowrap; vertical-align: top; text-align: left; padding-right: 30px;">{}</td>'.format(
