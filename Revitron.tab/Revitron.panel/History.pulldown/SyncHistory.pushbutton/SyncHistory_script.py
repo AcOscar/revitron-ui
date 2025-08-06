@@ -42,6 +42,10 @@ out.print_md('Sync History for: **{}**<br>'.format(revitron.DOC.Title))
 param = dict()
 sql = "SELECT startTime, finishTime, size, user FROM syncs"
 
+#if nothing selected we show all, otherwise the first user will shown
+if userFilter is None:
+    userFilter = '*'
+	
 if userFilter != '*':
 	sql += " WHERE user = :user"
 	param = {'user': userFilter}
@@ -72,7 +76,13 @@ for row in rows:
 	minutes = revitronui.Date.diff(row[0], row[1])
 	syncMinutes.append(minutes)
 	table += tableCell(str(minutes) + ' min')
-	table += tableCell(str(round(float(str(row[2]).replace(' mb', '')), 2)) + ' mb')
+	#in a cloud  model size can be empty, we catch this here
+	try:
+		size_value = round(float(str(row[2]).replace(' mb', '')), 2)
+	except (ValueError, TypeError):
+		size_value = 0.0
+	table += tableCell(str(size_value) + ' mb')
+	#table += tableCell(str(round(float(str(row[2]).replace(' mb', '')), 2)) + ' mb')
 	table += tableCell(row[3])
 	table += '</tr>'
 
