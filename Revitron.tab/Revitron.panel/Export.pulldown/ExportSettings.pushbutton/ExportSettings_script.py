@@ -48,18 +48,18 @@ if not revitron.Document().isFamily():
 	                           'Sheet_Naming_Template',
 	                           'Sheet_Size_Parameter_Name',
 	                           'Default_Sheet_Size',
-	                           'Sheet_Orientation_Parameter_Name'
-	                           'Sheet Export Directory',
-	                           'Sheet Naming Template',
+	                           'Sheet_Orientation_Parameter_Name',
+	                           'Sheet_Export_Directory',
+	                           'Sheet_Naming_Template',
 	                       ])
 						   
 	#components.append(CheckBox('selection', 'Sanitize', config))
 	addCheckBox	(components, config, 'Sanitize')			   
 	components = addFields(components,
 	                       [
-	                           'Sheet Size Parameter Name',
-	                           'Default Sheet Size',
-	                           'Sheet Orientation Parameter Name'
+	                           'Sheet_Size_Parameter_Name',
+	                           'Default_Sheet_Size',
+	                           'Sheet_Orientation_Parameter_Name'
 	                       ])
 
 	components = addComboBox(
