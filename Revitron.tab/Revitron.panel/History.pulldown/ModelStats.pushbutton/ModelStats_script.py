@@ -42,9 +42,17 @@ try:
 
 	conn = sqlite3.connect(sqliteFile)
 	cursor = conn.cursor()
-	cursor.execute('SELECT size, finishTime, user FROM syncs')
+	cursor.execute('SELECT COALESCE(size, 0), finishTime, user FROM syncs')
 	rows = cursor.fetchmany(100)
-	sizes = [round(i[0], 2) for i in rows]
+	#make safe for empty size
+	def safe_float(value):
+		try:
+			return round(float(value), 2)
+		except (ValueError, TypeError):
+			return 0.0
+
+	sizes = [safe_float(i[0]) for i in rows]
+	
 	users = ['{}, {}'.format(i[1], i[2]) for i in rows]
 	sizeChart = revitronui.LineChart(sizes, users, 'File Size (MB)')
 	sizeChart.draw()
