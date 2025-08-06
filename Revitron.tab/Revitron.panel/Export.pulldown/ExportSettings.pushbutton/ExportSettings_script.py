@@ -1,6 +1,6 @@
 import revitron
 from revitron import _
-from rpw.ui.forms import FlexForm, TextBox, Button, Label, Separator, ComboBox
+from rpw.ui.forms import FlexForm, TextBox, Button, Label, Separator, ComboBox, CheckBox
 from collections import defaultdict
 from pyrevit import script
 import System.Windows
@@ -27,7 +27,12 @@ def addComboBox(components, config, name, values):
 	components.append(Label(name))
 	components.append(ComboBox(key, values, default=default))
 	return components
-
+	
+def addCheckBox(components, config, name):
+	key = revitron.String.sanitize(name)
+	
+	components.append(CheckBox('Sanitize', name, default=config.get(key)))
+	return components
 
 def openHelp(sender, e):
 	script.open_url('https://revitron-ui.readthedocs.io/en/latest/tools/export.html')
@@ -44,6 +49,17 @@ if not revitron.Document().isFamily():
 	                           'Sheet_Size_Parameter_Name',
 	                           'Default_Sheet_Size',
 	                           'Sheet_Orientation_Parameter_Name'
+	                           'Sheet Export Directory',
+	                           'Sheet Naming Template',
+	                       ])
+						   
+	#components.append(CheckBox('selection', 'Sanitize', config))
+	addCheckBox	(components, config, 'Sanitize')			   
+	components = addFields(components,
+	                       [
+	                           'Sheet Size Parameter Name',
+	                           'Default Sheet Size',
+	                           'Sheet Orientation Parameter Name'
 	                       ])
 
 	components = addComboBox(
