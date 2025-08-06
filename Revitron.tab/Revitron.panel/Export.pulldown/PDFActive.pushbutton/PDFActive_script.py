@@ -3,7 +3,15 @@ from revitron import _
 from revitronui import PDF
 from pyrevit import script
 import os
+import sys
 
+#prevent error mesaage if we not in a sheet
+if hasattr(revitron, "ACTIVE_VIEW"):
+	sheet = revitron.ACTIVE_VIEW
+else:
+	print("Warning: 'ACTIVE_VIEW' it's not a sheet. This command works only in a activeated sheet. Or the Export settings are not correct. Please check tha active view and the Revitron Export Settings.")
+	sys.exit(1)
+	
 sheet = revitron.ACTIVE_VIEW
 
 if _(sheet).getClassName() == 'ViewSheet':
